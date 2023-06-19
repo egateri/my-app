@@ -85,8 +85,7 @@ const Login =() => {
                 <strong>Email</strong>
               </label>
               <input
-                type="email"
-                placeholder="Enter Email"
+                type="email" placeholder="Enter Email"
                 onChange={handleInput}
                 name="email"
                 className="form-control rounded-0 "

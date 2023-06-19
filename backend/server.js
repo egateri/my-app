@@ -19,7 +19,7 @@ app.post("/login", (req, res) => {
       return res.json("Success");
     } else {
       console.log("Unsuccessful login");
-      return res.json("unsuccess");
+      return res.json("Unsuccess");
     }
   });
 });
@@ -29,11 +29,12 @@ app.post("/signup", (req, res) => {
 db.query(sqlCheck,[req.body.email],(error, data) =>{
 if (error) {
     console.log("Server errors at sign up");
+    console.log(error);
         return res.json("Error");
       } 
 if(data.length > 0){
     console.log("User Exists");
-    return res.json("User Exists");
+    return res.json("exists");
 
 }
 else {

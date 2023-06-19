@@ -3,12 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signup = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState({
     name: "",
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
+  const handleError = (error) => {
+    setErrorMessage(error);
+  };
   const handleInput = (event) => {
     setValues((prev) => ({
       ...prev,
@@ -23,7 +28,12 @@ const Signup = () => {
         if (res.data === "Success") {
           navigate("/login");
         }
-      })
+        else if (res.data === "Error") {
+          handleError("Server Errors");
+        }
+        else if (res.data === "exists") {
+          handleError("User Exists");
+        }})
       .catch((err) => console.log(err));
   };
   return (
@@ -103,6 +113,7 @@ const Signup = () => {
             <button type="submit" className="btn btn-success w-100 rounded-0">
               <strong>Sign Up</strong>
             </button>
+            <div className="alert alert-warning mb-3" > {errorMessage}</div>
             <p>You agree to Terms and Conditions</p>
             <Link
               to="/login"

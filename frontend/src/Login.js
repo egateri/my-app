@@ -26,16 +26,20 @@ const Login =() => {
     axios
       .post("http://localhost:5500/login", values)
       .then((res) => {
-        if (res.data === "Success") {
+        if (res.data ==="Success") {
           navigate("/");
           
         } 
-        else if(res.data === "unsuccess"){
+        else if(res.data ==="Unsuccess"){
 
           handleError("Wrong User Name and Password Combination");
         }
-        else {
+        else if(res.data ==="Error"){
+
           handleError("Server Errors");
+        }
+        else {
+          handleError("Other Errors");
         }
       })
       .catch((err) => console.log(err));

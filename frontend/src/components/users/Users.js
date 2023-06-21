@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Result from "./Result";
-import Header from "./Header";
+import Header from "../../Header";
 
 const Users = () => {
   const [results, setResults] = useState([]);
@@ -27,11 +27,10 @@ const Users = () => {
         <table>
           <tr>
             <th>ID</th>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Password</td>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
           </tr>
-
           {results.map((result) => {
             return (
               <Result

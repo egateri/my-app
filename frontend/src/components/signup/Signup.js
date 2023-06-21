@@ -1,63 +1,69 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Header from "./Header";
-const Login =() => {
-  
+import Header from "../../Header";
+
+const Signup = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState({
+    name: "",
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const handleError = (error) => {
     setErrorMessage(error);
   };
-
-
   const handleInput = (event) => {
     setValues((prev) => ({
-      ...prev, [event.target.name]: [event.target.value],
+      ...prev,
+      [event.target.name]: [event.target.value],
     }));
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:5500/login", values)
+      .post("http://localhost:5500/signup", values)
       .then((res) => {
-        
-        if (res.data ==="Success") {
-          navigate("/");
-          
-        } 
-        else if(res.data ==="Unsuccess"){
-
-          handleError("Wrong User Name and Password Combination");
+        if (res.data === "Success") {
+          navigate("/login");
         }
-        else if(res.data ==="Error"){
-
+        else if (res.data === "Error") {
           handleError("Server Errors");
         }
-        else {
-          handleError("Other Errors");
-        }
-      })
+        else if (res.data === "exists") {
+          handleError("User Exists");
+        }})
       .catch((err) => console.log(err));
   };
   return (
     <div>
-      <Header />
+ <Header />
       <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
         <div className="bg-white p-3 rounded">
-          <h2>Login:</h2>
+          <h2>Sign Up:</h2>
           <form action="" method="" autoComplete="off" onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="name">
+                <strong>Name</strong>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Name"
+                onChange={handleInput}
+                name="name"
+                className="form-control rounded-0 "
+                required
+              />
+            </div>
             <div className="mb-3">
               <label htmlFor="email">
                 <strong>Email</strong>
               </label>
               <input
-                type="email" placeholder="Enter Email"
+                type="email"
+                placeholder="Enter Email"
                 onChange={handleInput}
                 name="email"
                 className="form-control rounded-0 "
@@ -74,19 +80,18 @@ const Login =() => {
                 onChange={handleInput}
                 name="password"
                 className="form-control rounded-0 "
-                required
               />
             </div>
             <button type="submit" className="btn btn-success w-100 rounded-0">
-              <strong>Login</strong>
+              <strong>Sign Up</strong>
             </button>
             <div className="alert alert-warning mb-3" > {errorMessage}</div>
             <p>You agree to Terms and Conditions</p>
             <Link
-              to="/signup"
-              className="btn btn-default border rounded-0 bg-light w-100 text-decoration-none"
+              to="/login"
+              className="btn btn-default border rounded-0 bg-light w-100"
             >
-              <strong>Create Account</strong>
+              <strong>Login</strong>
             </Link>
           </form>
         </div>
@@ -95,4 +100,4 @@ const Login =() => {
   );
 }
 
-export default Login;
+export default Signup;

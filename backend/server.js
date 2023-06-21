@@ -9,6 +9,7 @@ app.use(cors());
 app.post("/login", (req, res) => {
   const sql = "SELECT * FROM users WHERE `email` = ? AND `password` = ?";
 
+
   db.query(sql, [req.body.email, req.body.password], (err, data) => {
     if (err) {
       console.log("Server errors at login");
@@ -20,6 +21,27 @@ app.post("/login", (req, res) => {
     } else {
       console.log("Unsuccessful login");
       return res.json("Unsuccess");
+    }
+  });
+});
+
+app.post("/users", (req, res) => {
+ 
+  const sql = "SELECT * FROM users";
+
+  db.query(sql, [req.body.email, req.body.password], (err, data) => {
+    if (err) {
+      console.log("Server errors at login");
+      return res.json("Error");
+    }
+    if (data.length > 0) {
+      console.log("Users exists and data pushed to front end");
+      // console.log(data);
+      return res.json(data);
+      
+    } else {
+      console.log("Users do not exists");
+      return res.json("No Users");
     }
   });
 });

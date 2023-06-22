@@ -6,17 +6,32 @@ import Footer from "../footer/Footer";
 
 const Users = () => {
   const [results, setResults] = useState([]);
+  const [message, setMessage] = useState("");
 
   const handleResult = (result) => {
     setResults(result);
   };
 
+  const handleMessage =(message) =>{
+    setMessage(message);
+  }
+
   const getResults = () => {
     axios
       .post("http://localhost:5500/users")
       .then((res) => {
-        console.log(res.data);
-        handleResult(res.data);
+
+        if(res.data ==="Error"){
+
+          handleMessage("Errors connecting with database");
+        }
+        else if(res.data ==="No Users"){
+          handleMessage("No Users");
+
+        }
+        else{console.log(res.data);
+          handleResult(res.data);}
+        
       })
       .catch((err) => console.log(err));
   };
@@ -24,6 +39,7 @@ const Users = () => {
     <div>
       <Header/>
       <button onClick={getResults}>Results:</button>
+      <h1>{message}</h1>
       <div>
         <table>
         <thead>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Result from "./Result";
-import Header from "../../Header";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 const Users = () => {
   const [results, setResults] = useState([]);
@@ -21,28 +22,37 @@ const Users = () => {
   };
   return (
     <div>
-      <Header />
+      <Header/>
       <button onClick={getResults}>Results:</button>
       <div>
         <table>
+        <thead>
           <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
             <th>Password</th>
-          </tr>
+            </tr>
+            </thead>
+          <tbody>
+            
           {results.map((result) => {
             return (
+              <tr>
               <Result
                 id={result.id}
                 name={result.name}
                 email={result.email}
                 password={result.password}
               />
+              </tr>
             );
           })}
+         
+          </tbody>
         </table>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 const Header = (props) => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
         <a className="navbar-brand" href="/">
           Home
         </a>

@@ -1,4 +1,4 @@
-const Header = () => {
+const Header = (props) => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -29,7 +29,7 @@ const Header = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/users" >
+              <a className="nav-link" href="/users" onClick={props.test}>
                 Users
               </a>
             </li>
